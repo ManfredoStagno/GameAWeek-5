@@ -43,7 +43,9 @@ public class PlayerController : MonoBehaviour
         }
 
         moveVector.x = speed;
-        moveVector.y -= appliedGravity;
+
+        if(!cc.isGrounded)
+            moveVector.y -= appliedGravity;
 
         cc.Move(moveVector * Time.deltaTime);
     } 

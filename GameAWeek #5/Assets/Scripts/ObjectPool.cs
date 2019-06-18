@@ -112,6 +112,7 @@ public abstract class PoolObject<TPool, TObject> : MonoBehaviour
     public void SetReferences(TPool pool)
     {
         objectPool = pool;
+        SetReferences();
     }
 
     protected virtual void SetReferences()
