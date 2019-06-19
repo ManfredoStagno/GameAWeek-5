@@ -6,7 +6,7 @@ public class Spawner : MonoBehaviour
 {
     public Transform player;
     public PlatformPool platformPool;
-    
+
     public List<PlatformObject> activePlatforms = new List<PlatformObject>();
 
 
@@ -52,11 +52,11 @@ public class Spawner : MonoBehaviour
         return new Vector3(x, Random.Range(-yGap, yGap), 0f);
     }
 
-    public void Add(PlatformObject platform)        
+    public void Add(PlatformObject platform)
     {
         activePlatforms.Add(platform);
 
-        lastPlatform = platform;        
+        lastPlatform = platform;
     }
 
     public void Remove(PlatformObject platform)
@@ -65,6 +65,4 @@ public class Spawner : MonoBehaviour
         firstPlatform = activePlatforms[0];
         platform.ReturnToPool();
     }
-
-
 }

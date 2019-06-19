@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlatformPool : ObjectPool<PlatformPool, PlatformObject, Vector3>
 {
     public Spawner spawner;
-    public float offScreenOffset;
+    //public float offScreenOffset;
 }
 
 public class PlatformObject : PoolObject<PlatformPool, PlatformObject, Vector3>
@@ -13,7 +13,7 @@ public class PlatformObject : PoolObject<PlatformPool, PlatformObject, Vector3>
     public Transform transform;
     public Spawner spawner;
     
-    public float offScreenOffset;
+    //public float offScreenOffset;
     public float width;
     
     //this is basically the object start method
@@ -23,7 +23,7 @@ public class PlatformObject : PoolObject<PlatformPool, PlatformObject, Vector3>
         transform = instance.transform;
         objectPool.spawner = spawner;
         width = transform.localScale.x / 2;
-        offScreenOffset = objectPool.offScreenOffset;
+       // offScreenOffset = objectPool.offScreenOffset;
 
         //assign fields in the objectscript 
         

@@ -40,7 +40,7 @@ public abstract class ObjectPool<TPool, TObject> : MonoBehaviour
     where TObject : PoolObject<TPool, TObject>, new()
 {
     public GameObject prefab;
-    public int initialPoolCount = 10;
+    public int initialPoolCount = 3;
     [HideInInspector]
     public List<TObject> pool = new List<TObject>();
 
