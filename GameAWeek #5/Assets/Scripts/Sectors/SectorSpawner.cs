@@ -20,6 +20,12 @@ public class SectorSpawner : MonoBehaviour
     public float despawnDistance;
     public float gap;
 
+    public int beforeRest;
+
+    //public List<string> verbs;
+    //public List<string> counterVerbs;
+    //private Dictionary<string, string> language;
+
     private void Start()
     {
         //Initialize dictionaries and lists
@@ -39,11 +45,26 @@ public class SectorSpawner : MonoBehaviour
         }
     }
 
+    private int counter = 0;
     private void Update()
-    {
+    {        
         if (player.position.x > firstSector.transform.position.x + despawnDistance)
         {
-            SpawnRandomSector(DetermineSpawnPosition(lastSector));
+            if (counter == beforeRest)
+            {
+                SpawnSector(DetermineSpawnPosition(lastSector), "RunFlat");
+                counter = 0;
+                beforeRest++;
+            }
+            else
+            {
+                SpawnRandomSector(DetermineSpawnPosition(lastSector));
+            }
+            if (lastSector.objectPool.prefabKey != "RunFlat")
+            {
+                counter++;
+            }
+
             Remove(firstSector);
         }
     }
@@ -55,10 +76,15 @@ public class SectorSpawner : MonoBehaviour
         Add(sector);
     }
 
+    private void SpawnSector(Vector3 position, string key)
+    {
+        SectorObject sector = poolDictionary[key].Pop(position);
+        Add(sector);
+    }
+
     private Vector3 DetermineSpawnPosition(SectorObject lastSector)
     {
-        Vector3 circle = Random.insideUnitCircle * gap;
-        Vector3 position = Vector3.right * gap + circle;
+        Vector3 position = Vector3.right * gap;
         position += lastSector.rightBoundary.position;
         return position;
     }
