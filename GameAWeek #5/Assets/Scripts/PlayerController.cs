@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -14,6 +15,8 @@ public class PlayerController : MonoBehaviour
     [Range(0,1)]
     public float highJumpMultiplier;
 
+    public float deathTimer = 500;
+
 
     void Start()
     {
@@ -22,7 +25,8 @@ public class PlayerController : MonoBehaviour
 
     void FixedUpdate()
     {
-        MoveAndJump();  
+        MoveAndJump();
+        GameOver();
     }
 
     void MoveAndJump()
@@ -48,5 +52,25 @@ public class PlayerController : MonoBehaviour
             moveVector.y -= appliedGravity;
 
         cc.Move(moveVector * Time.deltaTime);
-    } 
+    }
+
+    private float counter = 0;
+    private void GameOver()
+    {
+        if (!cc.isGrounded && moveVector.y < 0)
+        {
+            counter++;
+            Debug.Log("counter");
+        }
+        else
+        {
+            counter = 0;
+        }
+
+        if (moveVector.y < 0 && counter > deathTimer)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            counter = 0;
+        }
+    }
 }
